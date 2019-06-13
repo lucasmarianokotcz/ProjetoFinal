@@ -1,0 +1,53 @@
+﻿@model ProvaFacil.Models.Usuario
+
+@{
+                /**/
+
+                ViewBag.Title = "Cadastro";
+}
+
+<div class="row" style="margin:auto auto 5% auto">
+    <a href="@Url.Action("Index", "Home")">
+        <div class="titulo">
+            Prova<br />
+            Fácil
+        </div>
+    </a>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 offset-sm-4 text-center">
+                <div class="caixaLogin">
+                    <h3 style="margin-top: 5%; margin-bottom: 16%; color: #47525E; font-weight: 500;">Cadastro</h3>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger text-left", @style = "margin-top: -10%" })
+                    <div class="form-group" style="margin-top: 18%">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control text-center col-sm-8 offset-sm-2 txtLoginCadastro", @placeholder = "Endereço de e-mail", @type = "email", @maxlength = "60" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-info" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control text-center col-sm-8 offset-sm-2 txtLoginCadastro", @placeholder = "Nome", @maxlength = "60" } })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-info" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.SenhaHash, new { htmlAttributes = new { @class = "form-control text-center col-sm-8 offset-sm-2 txtLoginCadastro", @placeholder = "Senha", @type = "password", @maxlength = "20" } })
+                        @Html.ValidationMessageFor(model => model.SenhaHash, "", new { @class = "text-info" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Cadastrar" class="btnCadastrar" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

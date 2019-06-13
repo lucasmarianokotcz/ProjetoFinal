@@ -1,0 +1,318 @@
+﻿@model ProvaFacil.Models.Prova
+
+@{
+    /**/
+
+    ViewBag.Title = "Nova prova";
+}
+
+<div class="row" style="margin: auto">
+    <a href="@Url.Action("Index", "Home")">
+        <div class="titulo">
+            Prova<br />
+            Fácil
+        </div>
+    </a>
+
+    <div style="margin: auto">
+        <h1 style="text-align: center; color: #77D353">Nova prova</h1>
+    </div>
+</div>
+
+<h5 class="text-danger" style="margin-top: 2%">* Campos obrigatórios</h5>
+
+
+@using (Html.BeginForm("Nova", "Prova", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div style="border: 1px solid black; padding: 20px 0px 20px 0px; margin-top: 3%">
+        @Html.AntiForgeryToken()
+
+        <h4 style="margin-top: 2%; margin-bottom: 3%; text-align: center">Cabeçalho</h4>
+
+        <div class="form-group">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger text-left" })
+            <div class="image-upload">
+                <label for="file-input">
+                    <img src="~/Content/Prova/imgCabecalho.png" style="margin-bottom: 2%; width: 100%; height: 150px" />
+                </label>
+                <input id="file-input" name="ImagemEscolhida" type="file" onchange="previewFile()" accept="image/*" />
+            </div>
+
+            @Html.EditorFor(model => model.Colegio.Nome_colegio, new { htmlAttributes = new { @class = "form-control text-center txtCamposProva", @placeholder = "Nome da instituição", @maxlength = "80" } })
+        </div>
+
+        <div class="form-inline">
+            <div class="form-group">
+                <h5>
+                    Nome: _________________________________________________________
+                    Data: @Html.EditorFor(model => model.Cabecalho.Data_prova, new { htmlAttributes = new { @class = "form-control col-sm-2 txtCamposProva", @placeholder = "dd/mm/aaaa", @maxlength = "10", @style = "margin-right: 6px" } })
+                    @*Data: @Html.TextBox("DataProva", null, new { @class = "form-control col-sm-2 txtCamposProva", @placeholder = "dd/mm/aaaa", @maxlength = "10", @style = "margin-right: 6px" })*@
+                    <b style="color: red">*</b>Valor: @Html.EditorFor(model => model.Cabecalho.Valor_prova, new { htmlAttributes = new { @class = "form-control col-sm-1 txtCamposProva", @maxlength = "4", @style = "margin-right: 10px" } })
+                    Nota: ______
+                </h5>
+            </div>
+        </div>
+
+        <div class="form-inline">
+            <div class="form-group">
+                <h5>
+                    <b style="color: red">*</b>Matéria: @Html.EditorFor(model => model.Materia.Nome_materia, new { htmlAttributes = new { @class = "form-control col-sm-3 txtCamposProva", @maxlength = "20", @style = "margin-right: 15px" } })
+                    Assunto: @Html.EditorFor(model => model.Assunto.Nome_assunto, new { htmlAttributes = new { @class = "form-control col-sm-3 txtCamposProva", @maxlength = "20", @style = "margin-right: 20px" } })
+                    Turno: @Html.DropDownListFor(model => model.Turma.Turno, new SelectList(
+new List<Object>{
+new { value = "" , text = "" },
+new { value = "Manhã" , text = "Manhã" },
+new { value = "Tarde" , text = "Tarde" },
+new { value = "Noite" , text = "Noite" }
+},
+"value",
+"text",
+0), new { @class = "form-control col-sm-2 txtCamposProva", @maxlength = "5", @style = "margin-right: 20px" })
+                    @Html.EditorFor(model => model.Turma.Nivel, new { htmlAttributes = new { @class = "form-control col-sm-3 text-center txtCamposProva", @maxlength = "20", @placeholder = "Nível de ensino" } })
+                </h5>
+            </div>
+        </div>
+
+        <p>@Html.ValidationMessageFor(model => model.Cabecalho.Valor_prova, "", new { @class = "text-danger" })</p>
+        <p>@Html.ValidationMessageFor(model => model.Materia.Nome_materia, "", new { @class = "text-danger" })</p>
+
+        <h4 style="margin-top: 3%; margin-bottom: 3%; text-align: center">Questões</h4>
+
+        <div class="form-inline">
+            <div class="form-group">
+                <h5>
+                    <b style="color: red">*</b>Tipo da questão: @Html.DropDownListFor(model => model.Questao.Tipo_questao, new SelectList(
+new List<Object>{
+new { value = "Dissertativa" , text = "Dissertativa" },
+new { value = "Múltipla escolha" , text = "Múltipla escolha" },
+new { value = "Verdadeiro/falso" , text = "Verdadeiro/falso" }
+},
+"value",
+"text",
+1), new { @class = "form-control col-sm-3 txtCamposProva", @maxlength = "20", @style = "margin-right: 5px", @id = "tipoQuestao" })
+
+                    Valor da questão: @Html.EditorFor(model => model.Questao.Valor_questao, new { htmlAttributes = new { @class = "form-control col-sm-2 txtCamposProva", @maxlength = "4" } })
+                </h5>
+            </div>
+        </div>
+        <div class="form-group">
+            <h5><b style="color: red">*</b>Descrição da questão: @Html.TextAreaFor(model => model.Questao.Descricao_questao, new { @class = "form-control txtCamposProva", @maxlenght = "1500", @rows = "3", @style = "margin-top: 10px" }) @*<textarea class="form-control txtCamposProva" maxlength="1500" rows="3" style="margin-top: 10px"></textarea>*@</h5>
+            <p>@Html.ValidationMessageFor(model => model.Questao.Tipo_questao, "", new { @class = "text-danger" })</p>
+            <p>@Html.ValidationMessageFor(model => model.Questao.Descricao_questao, "", new { @class = "text-danger" })</p>
+            <p>@Html.ValidationMessageFor(model => model.Questao.Valor_questao, "", new { @class = "text-danger" }) </p>
+        </div>
+
+        <div id="respostaDissertativa">
+            <div class="row">
+                <div class="col-2">
+                    <a href="javascript:;" id="addLinha">
+                        <img src="~/Content/Prova/icone_adicionaropcao.png" style="width: 15%; margin-right: 10px" align="left" />
+                    </a>
+                    <p>Adicionar linha</p>
+                </div>
+                <div class="col-2">
+                    <a href="javascript:;" id="removerLinha">
+                        <img src="~/Content/Prova/icone_removeropcao.png" style="width: 15%; margin-right: 10px" align="left" />
+                    </a>
+                    <p>Remover linha</p>
+                </div>
+            </div>
+            <p style="font-size: 20px">Resposta:</p>
+            <h5 id="novaLinha">_____________________________________________________________________________________________________________________________________</h5>
+        </div>
+
+        @Html.HiddenFor(q => q.Questao.Numero_linhas, new { @id = "numeroLinhas", Value = 1 })
+
+        <div id="respostaMultiplaEscolha">
+            @*<div class="row">
+                    <div class="col-2">
+                        <a href="javascript:;" id="addOpcaoMultiplaEscolha">
+                            <img src="~/Content/Prova/icone_adicionaropcao.png" style="width: 15%; margin-right: 10px" align="left" />
+                        </a>
+                        <p>Adicionar opção</p>
+                    </div>
+                    <div class="col-2">
+                        <a href="javascript:;" id="removerOpcaoMultiplaEscolha">
+                            <img src="~/Content/Prova/icone_removeropcao.png" style="width: 15%; margin-right: 10px" align="left" />
+                        </a>
+                        <p>Remover opção</p>
+                    </div>
+                </div>*@
+            <div id="opcaoMultiplaEscolha">
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoMult1, new { htmlAttributes = new { @class = "form-control col-sm-9 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaMult, "1")&ensp; Resposta correta</h5>
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoMult2, new { htmlAttributes = new { @class = "form-control col-sm-9 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaMult, "2")&ensp; Resposta correta</h5>
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoMult3, new { htmlAttributes = new { @class = "form-control col-sm-9 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaMult, "3")&ensp; Resposta correta</h5>
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoMult4, new { htmlAttributes = new { @class = "form-control col-sm-9 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaMult, "4")&ensp; Resposta correta</h5>
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoMult5, new { htmlAttributes = new { @class = "form-control col-sm-9 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaMult, "5")&ensp; Resposta correta</h5>
+            </div>
+        </div>
+
+        <div id="respostaVerdadeiroFalso">
+            @*<div class="row">
+                    <div class="col-2">
+                        <a href="javascript:;" id="addOpcaoVerdadeiroFalso">
+                            <img src="~/Content/Prova/icone_adicionaropcao.png" style="width: 15%; margin-right: 10px" align="left" />
+                        </a>
+                        <p>Adicionar opção</p>
+                    </div>
+                    <div class="col-2">
+                        <a href="javascript:;" id="removerOpcaoVerdadeiroFalso">
+                            <img src="~/Content/Prova/icone_removeropcao.png" style="width: 15%; margin-right: 10px" align="left" />
+                        </a>
+                        <p>Remover opção</p>
+                    </div>
+                </div>*@
+            <div id="opcaoVerdadeiroFalso">
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoVF1, new { htmlAttributes = new { @class = "form-control col-sm-8 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF1, true)&ensp; Verdadeiro &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF1, false)&ensp; Falso</h5>
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoVF2, new { htmlAttributes = new { @class = "form-control col-sm-8 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF2, true)&ensp; Verdadeiro &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF2, false)&ensp; Falso</h5>
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoVF3, new { htmlAttributes = new { @class = "form-control col-sm-8 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF3, true)&ensp; Verdadeiro &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF3, false)&ensp; Falso</h5>
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoVF4, new { htmlAttributes = new { @class = "form-control col-sm-8 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF4, true)&ensp; Verdadeiro &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF4, false)&ensp; Falso</h5>
+                <h5 class="form-inline">(&emsp;)&emsp; @Html.EditorFor(model => model.Opcao.Descricao_opcaoVF5, new { htmlAttributes = new { @class = "form-control col-sm-8 txtCamposProva", @maxlength = "150" } }) &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF5, true)&ensp; Verdadeiro &emsp; @Html.RadioButtonFor(r => r.Opcao.Opcao_correta_escolhidaVF5, false)&ensp; Falso</h5>
+            </div>
+        </div>
+
+        @*<div class="row" style="margin: auto; margin-top: 0%">
+                <a href="javascript:;">
+                    <div class="btnAdicionarQuestao" id="addQuestao">
+                        <img src="~/Content/Prova/icone_novaquestao.png" style="width: 20%" />
+                        Salvar
+                    </div>
+
+                </a>
+                <a style="margin-left: 48%" href="javascript:;">
+                    <div class="btnEditarQuestao">
+                        <img src="~/Content/Prova/icone_editarquestao.png" style="width: 20%" />
+                        Editar
+                    </div>
+                </a>
+                <a style="margin-left: 67%" href="javascript:;">
+                    <div class="btnRemoverQuestao">
+                        <img src="~/Content/Prova/icone_removerquestao.png" style="width: 20%" />
+                        Remover
+                    </div>
+                </a>
+            </div>*@
+    </div>
+    <div class="form-group" style="margin-top: 3%">
+        <button type="submit" class="btnAdicionarQuestao"><img src="~/Content/Prova/icone_novaquestao.png" style="width: 20%" />Salvar</button>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script src="~/Scripts/jquery.validate.custom.pt-br.js"></script>
+<script>
+    function previewFile() {
+        var preview = document.querySelector('img');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.src = reader.result;
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+<script>
+    var cloneId = 0;
+    var numLinhas = 1;
+    var numOpcoesMultiplaEscolha = 1;
+    var numOpcoesVerdadeiroFalso = 1;
+
+    //function validaDropDown() {
+    //    var valorDropDown = document.getElementById("tipoQuestao").value;
+    //    if (valorDropDown == 0) {
+    //        alert("Selecione um tipo de questão");
+    //    }
+    //}
+
+    $(function () {
+        $('#respostaMultiplaEscolha').hide();
+        $('#respostaVerdadeiroFalso').hide();
+
+        $('#tipoQuestao').change(function () {
+            if ($('#tipoQuestao').val() == "Dissertativa") {
+                $('#respostaDissertativa').show();
+            } else {
+                $('#respostaDissertativa').hide();
+            }
+            if ($('#tipoQuestao').val() == "Múltipla escolha") {
+                $('#respostaMultiplaEscolha').show();
+            } else {
+                $('#respostaMultiplaEscolha').hide();
+            }
+            if ($('#tipoQuestao').val() == "Verdadeiro/falso") {
+                $('#respostaVerdadeiroFalso').show();
+            } else {
+                $('#respostaVerdadeiroFalso').hide();
+            }
+        });
+    });
+
+    $(function () {
+        $("#addLinha").click(function () {
+            if (numLinhas < 5) {
+                $("#novaLinha").clone().appendTo("#respostaDissertativa");
+                numLinhas++;
+                $("#numeroLinhas").val(numLinhas);
+            }
+        })
+    });
+
+    $(function () {
+        $("#removerLinha").click(function () {
+            if (numLinhas > 1) {
+                $("#novaLinha").remove();
+                numLinhas--;
+                $("#numeroLinhas").val(numLinhas);
+            }
+        })
+    });
+
+    $(function () {
+        $("#addOpcaoMultiplaEscolha").click(function () {
+            if (numOpcoesMultiplaEscolha < 5) {
+                $("#opcaoMultiplaEscolha").clone().appendTo("#respostaMultiplaEscolha").find("input[type='text']").val("");
+                $("#respostaMultiplaEscolha").find("input[type='radio']").prop("checked", false);
+                numOpcoesMultiplaEscolha++;
+            }
+        });
+    });
+
+    $(function () {
+        $("#removerOpcaoMultiplaEscolha").click(function () {
+            if (numOpcoesMultiplaEscolha > 1) {
+                $("#opcaoMultiplaEscolha").remove();
+                numOpcoesMultiplaEscolha--;
+            }
+        });
+    });
+
+    $(function () {
+        $("#addOpcaoVerdadeiroFalso").click(function () {
+            if (numOpcoesVerdadeiroFalso < 5) {
+                var clone = $("#opcaoVerdadeiroFalso").clone(true);
+                clone.find("input").prop("name", "Resposta" + cloneId);
+                cloneId++;
+                clone.appendTo("#respostaVerdadeiroFalso");
+                clone.find("input[type='text']").val("");
+                clone.find("input[type='radio']").prop("checked", false);
+                numOpcoesVerdadeiroFalso++;
+            }
+        });
+    });
+
+    $(function () {
+        $("#removerOpcaoVerdadeiroFalso").click(function () {
+            if (numOpcoesVerdadeiroFalso > 1) {
+                $("#opcaoVerdadeiroFalso").remove();
+                numOpcoesVerdadeiroFalso--;
+            }
+        });
+    });
+</script>

@@ -1,0 +1,65 @@
+﻿.image-upload > input {
+    display: none;
+}
+
+.novaProva {
+    border: 2px solid #77D353;
+    width: 210px;
+    height: 60px;
+    color: #77D353;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.visualizarProvas {
+    border: 2px solid #00A6FF;
+    width: 210px;
+    height: 60px;
+    color: #00A6FF;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.txtCamposProva {
+    border: 1px solid #343F4B;
+    font-size: 18px;
+}
+
+.btnAdicionarQuestao {
+    background-color: white;
+    border: 2px solid #13CE66;
+    width: 180px;
+    height: 50px;
+    color: #13CE66;
+    font-family: Arial;
+    font-size: 20px;
+    text-align: center;
+}
+
+.btnEditarQuestao {
+    border: 2px solid #FF9052;
+    width: 180px;
+    height: 50px;
+    color: #FF9052;
+    font-family: Arial;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 7px;
+}
+
+.btnRemoverQuestao {
+    border: 2px solid #F95F62;
+    width: 180px;
+    height: 50px;
+    color: #F95F62;
+    font-family: Arial;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 7px;
+}

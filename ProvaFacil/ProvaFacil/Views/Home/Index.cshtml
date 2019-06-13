@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Página Inicial";
+}
+
+<div class="row" style="margin: auto">
+    <a href="@Url.Action("Index", "Home")">
+        <div class="titulo">
+            Prova<br />
+            Fácil
+        </div>
+    </a>
+
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div style="margin-left: 7%">
+                <div class="row" style="margin-left: 20%; margin-top: initial">
+                    <p style="font-size: 18px; font-family: Arial; margin-top: 2%">Olá, <b>@User.Identity.Name</b></p>
+                    <a style="margin-left: 5%" href="@Url.Action("Login", "Home")">
+                        <div class="logout">
+                            Logout
+                        </div>
+                    </a>
+                </div>
+
+                <a href="@Url.Action("Index", "Prova")">
+                    <div class="gerenciarProvas">
+                        Gerenciar provas
+                    </div>
+                </a>
+            </div>
+        }
+    }
+    else
+    {
+        <div style="margin-left: auto">
+            <a href="@Url.Action("Login", "Home")">
+                <div class="login">
+                    Login
+                </div>
+            </a>
+
+            <a href="@Url.Action("Cadastro", "Home")">
+                <div class="cadastro" style="margin-top: 36px">
+                    Cadastro
+                </div>
+            </a>
+        </div>
+    }
+</div>

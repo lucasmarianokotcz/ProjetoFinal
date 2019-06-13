@@ -1,0 +1,147 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.titulo {
+    background-color: #77D353;
+    border: 1px solid #343F4B;
+    width: 682px;
+    height: 178px;
+    color: #343F4B;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 50px;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.login {
+    background-color: #13CE66;
+    width: 400px;
+    height: 70px;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 50px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+    .login:hover {
+        border: 2px solid #139466;
+    }
+
+.logout {
+    background-color: #ee7272;
+    width: 100px;
+    height: 34px;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 34px;
+    text-align: center;
+}
+
+    .logout:hover {
+        border: 2px solid #941313;
+    }
+
+.cadastro {
+    background-color: #00A6FF;
+    width: 400px;
+    height: 70px;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 50px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+    .cadastro:hover {
+        border: 2px solid #0072FF;
+    }
+
+.gerenciarProvas {
+    background-color: #0b798d;
+    width: 400px;
+    height: 50px;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 50px;
+    text-align: center;
+    margin-top: 20%;
+}
+
+    .gerenciarProvas:hover {
+        border: 2px solid #003d48;
+    }
+
+.caixaLogin {
+    background-color: #FFFFFF;
+    border: 2px solid #343F4B;
+}
+
+.txtLoginCadastro {
+    border: 1px solid #343F4B;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+    height: auto;
+}
+
+.btnCadastrar {
+    background-color: #FFFFFF;
+    border: 2px solid #00A6FF;
+    width: 153px;
+    height: 40px;
+    margin-top: 20%;
+    color: #00A6FF;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+    .btnCadastrar:hover {
+        background-color: #00A6FF;
+        color: white;
+    }
+
+.btnLogin {
+    background-color: #FFFFFF;
+    border: 2px solid #28ad33;
+    width: 153px;
+    height: 40px;
+    margin-top: 20%;
+    color: #28ad33;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+    .btnLogin:hover {
+        background-color: #28ad33;
+        color: white;
+    }

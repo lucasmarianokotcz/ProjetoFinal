@@ -1,0 +1,82 @@
+﻿@model ProvaFacil.Models.Prova
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<div class="row" style="margin: auto">
+    <a href="@Url.Action("Lista", "Prova")">
+        <div class="visualizarProvas" style="height: 50px; color: #53bbd3; border-color: #53bbd3">
+            <i class="fas fa-chevron-circle-left fa-lg"></i>
+            Voltar para a lista
+        </div>
+    </a>
+</div>
+<br />
+<h2>Tem certeza que deseja excluir esta prova?</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Colegio.Nome_colegio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Colegio.Nome_colegio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cabecalho.Data_prova)
+        </dt>
+
+        <dd>
+            @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.Cabecalho.Data_prova))
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cabecalho.Valor_prova)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cabecalho.Valor_prova)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Materia.Nome_materia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Materia.Nome_materia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Assunto.Nome_assunto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Assunto.Nome_assunto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Turma.Turno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Turma.Turno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Turma.Nivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Turma.Nivel)
+        </dd>
+    </dl>
+    <br />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+    }
+</div>

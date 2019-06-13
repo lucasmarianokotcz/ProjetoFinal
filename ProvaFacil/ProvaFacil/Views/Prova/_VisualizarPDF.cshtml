@@ -1,0 +1,80 @@
+﻿@model ProvaFacil.Models.Prova
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Prova Fácil</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container body-content">
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @if (ViewBag.ImagemCabecalho != null)
+        {
+            <img src="@ViewBag.ImagemCabecalho" style="margin-bottom: 2%; width: 1010px; height: 150px" />
+        }
+
+        <div class="h5">
+            <ul class="list-inline" style="text-align: center">
+                <li class="list-inline-item">@Html.DisplayFor(model => model.Cabecalho.Colegio.Nome_colegio)</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Nome: _________________________________________________________</li>
+                <li class="list-inline-item" style="margin-left: 1%; margin-right: 3%">
+                    @if (Model.Cabecalho.Data_prova != null)
+                    {
+                        <h5>Data: @Convert.ToString(string.Format("{0:dd/MM/yyyy}", Model.Cabecalho.Data_prova))</h5>
+                    }
+                    else
+                    {
+                        <h5>Data: ___/___/_____</h5>
+                    }
+                </li>
+                <li class="list-inline-item">Valor: @Html.DisplayFor(model => model.Cabecalho.Valor_prova)</li>
+                <li class="list-inline-item" style="margin-left: 3%">Nota: ______</li>
+            </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">Matéria: @Html.DisplayFor(model => model.Materia.Nome_materia)</li>
+                <li class="list-inline-item" style="margin-left: 10%">Assunto: @Html.DisplayFor(model => model.Assunto.Nome_assunto)</li>
+                <li class="list-inline-item" style="margin-left: 9%">@Html.DisplayFor(model => model.Turma.Turno)</li>
+                <li class="list-inline-item" style="margin-left: 9%">@Html.DisplayFor(model => model.Turma.Nivel)</li>
+            </ul>
+        </div>
+
+        <div class="h5" style="margin-top: 3%">
+            @for (int i = 1; i <= Model.ListaQuestoes.Count; i++)
+            {
+                <br /> <h5>
+                    @i) @Model.ListaQuestoes[i - 1].Descricao_questao @if (Model.ListaQuestoes[i - 1].Valor_questao != null)
+                    {
+                        @: (@Model.ListaQuestoes[i - 1].Valor_questao)
+                    }
+                </h5>
+                if (Model.ListaQuestoes[i - 1].Tipo_questao == "Dissertativa")
+                {
+                    for (int j = 0; j < Model.ListaQuestoes[i - 1].Numero_linhas; j++)
+                    {
+                        <hr style="border: 1px solid black; margin-top: 3%" />
+                    }
+                }
+                else if (Model.ListaQuestoes[i - 1].Tipo_questao == "Múltipla escolha" || Model.ListaQuestoes[i - 1].Tipo_questao == "Verdadeiro/falso")
+                {
+                    foreach (var opcao in Model.ListaQuestoes[i - 1].Opcao)
+                    {
+                        if (opcao.Descricao_opcao != null)
+                        {
+                            <h5>(&emsp;)&ensp;@opcao.Descricao_opcao</h5>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>

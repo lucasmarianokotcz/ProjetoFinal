@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ProvaFacil.Models.Cabecalho>
+
+@{
+    ViewBag.Title = "Lista";
+}
+
+<div class="row" style="margin: auto">
+    <a href="@Url.Action("Index", "Home")">
+        <div class="titulo">
+            Prova<br />
+            Fácil
+        </div>
+    </a>
+
+    <div style="margin: auto">
+        <h1 style="text-align: center; color: #53bbd3">Lista de provas</h1>
+    </div>
+</div>
+
+<table class="table table-bordered" style="margin-top: 3%">
+    <thead class="thead-light" style="text-align:center">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Colegio.Nome_colegio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data_prova)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor_prova)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questao.FirstOrDefault().Materia.Nome_materia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Questao.FirstOrDefault().Assunto.Nome_assunto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Turma.Turno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Turma.Nivel)
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Colegio.Nome_colegio)
+                </td>
+                <td>
+                    @Convert.ToString(string.Format("{0:dd/MM/yyyy}", item.Data_prova))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor_prova)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Questao.FirstOrDefault().Materia.Nome_materia)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Questao.FirstOrDefault().Assunto.Nome_assunto)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Turma.Turno)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Turma.Nivel)
+                </td>
+                <td>
+                    @*@Html.ActionLink(" ", "Edit", new { id = item.Cod_prova }, new { @class = "fas fa-edit fa-lg", @style = "color: orange" })*@
+                    @Html.ActionLink(" ", "Detalhes", new { id = item.Cod_prova }, new { @class = "fas fa-info-circle fa-lg", @style = "color: #5DBCD2" })
+                    @*@Html.ActionLink(" ", "Excluir", new { id = item.Cod_prova }, new { @class = "fas fa-trash-alt fa-lg", @style = "color: red" })*@
+                </td>
+            </tr>
+        }
+</table>

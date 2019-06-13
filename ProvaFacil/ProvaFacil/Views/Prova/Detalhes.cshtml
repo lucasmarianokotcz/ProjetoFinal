@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Detalhes";
+}
+
+<div class="row" style="margin: auto">
+    <a href="@Url.Action("Lista", "Prova")">
+        <div class="visualizarProvas" style="height: 50px; color: #53bbd3; border-color: #53bbd3">
+            <i class="fas fa-chevron-circle-left fa-lg"></i>
+            Voltar para a lista
+        </div>
+    </a>
+
+    <a href="@Url.Action("GerarPDF", "Prova", new { id = Model.Id })" style="margin-left: 750px">
+        <div class="visualizarProvas" style="width: 150px; height: 50px; color: #eb4d4b; border-color: #eb4d4b">
+            <i class="far fa-file-pdf fa-lg"></i>
+            Gerar PDF
+        </div>
+    </a>
+</div>
+
+<div style="border: 1px solid black; padding: 30px; margin-top: 3%">
+    @Html.Action("VisualizarPDF")
+</div>

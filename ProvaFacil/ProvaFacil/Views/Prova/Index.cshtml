@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Provas";
+}
+
+<div class="row" style="margin: auto">
+    <a href="@Url.Action("Index", "Home")">
+        <div class="titulo">
+            Prova<br />
+            Fácil
+        </div>
+    </a>
+
+    <div style="margin: auto">
+        <h1 class="display-4" style="text-align: center; font-size: 40px">Bem vindo, <b>@User.Identity.Name</b></h1>
+    </div>
+</div>
+
+<div class="row" style="margin: auto">
+    <a style="margin-top: 3%" href="@Url.Action("Nova", "Prova")">
+        <div class="novaProva">
+            <img src="~/Content/Prova/icone_adicionarprova.png" style="width: 20%" />
+            Nova prova
+        </div>
+    </a>
+    <a style="margin-top: 3%; margin-left: 3%" href="@Url.Action("Lista", "Prova")">
+        <div class="visualizarProvas">
+            <img src="~/Content/Prova/icone_visualizarprovas.png" style="width: 20%" />
+            Visualizar provas
+        </div>
+    </a>
+</div>
